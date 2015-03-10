@@ -1,0 +1,86 @@
+html, body
+	width 100%
+	height 100%
+	margin 0
+	padding 0
+	background-color black
+
+#main
+	display flex
+	flex-direction column
+	height 100%
+
+#game
+	margin-left auto
+	margin-right auto
+	width 95%
+	flex 1
+
+#tableDiv
+	// border-radius set by CardTable#resize
+	background linear-gradient(to bottom right, #ffeeff, #ffffee)
+
+table
+	table-layout fixed
+	height 100%
+
+tr
+	width 100%
+	height 100%
+	padding 0
+	margin 0
+
+td
+	padding 0
+	margin 0
+	width 100%
+	height 100%
+
+#hud
+	padding-top 18px
+	height 40px
+	flex-basis main-size
+	width 100%
+	margin-bottom -8px
+
+#hud td
+	width 33.3%
+
+#scoreTd
+	color cyan
+#timeTd
+	color yellow
+
+.word
+	font-family Impact
+	font-size 150%
+	margin-right 5%
+
+.num
+	font-family fantasy
+	font-weight bold
+	font-size 150%
+
+#hint
+	float right
+
+	color magenta
+	font-family cursive
+	font-size 150%
+	font-weight bold
+
+#hint:hover
+	color red
+
+#about
+	margin-left auto
+	margin-right auto
+	background-color #444444
+	width 75%
+	color white
+
+	padding-left 5%
+	padding-right 5%
+	padding-top 1%
+	padding-bottom 1%
+	border-radius 25px

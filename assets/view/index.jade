@@ -1,0 +1,37 @@
+doctype html
+html
+	head
+		title Thrifty Threesome Thriller
+		meta(charset='utf-8')
+		script(src='./script/index.js')
+		link(rel='stylesheet', href='/style/index.css')
+	body
+		div#main
+			div#game
+				div#tableDiv
+			table#hud
+				tr
+					td#scoreTd
+						span.word Score
+						span.num#score
+					td#timeTd
+						span.word Time
+						span.num#time
+					td
+						button#hint Hint
+		div#about
+			| Each card has:
+			ul
+				li Shape
+				li Color
+				li Shade
+				li Number
+
+			p Click on a group of 3 cards.
+			p For each attribute, that attribute must be <i>the same</i> for all, or <i>different</i> for all.
+			p For example
+			ul
+				li 1 2 3 is OK — each attribute is different.
+				li 1 1 1 is OK — each attribute is the same.
+				li 1 1 2 is bad — they are not <i>all</i> the same or <i>all</i> different.
+			p Use the hint button to see examples.
