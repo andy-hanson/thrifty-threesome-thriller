@@ -4,7 +4,7 @@ html
 		title Thrifty Threesome Thriller
 		meta(charset='utf-8')
 		script(src='./script/index.js')
-		link(rel="stylesheet", type="text/css", href="http://fonts.googleapis.com/css?family=Oleo+Script")
+		link(rel="stylesheet", type="text/css", href="http://fonts.googleapis.com/css?family=Oleo+Script|PT+Sans:400,700")
 		link(rel='stylesheet', type="text/css", href='./style/index.css')
 	body
 		div#main
@@ -18,6 +18,8 @@ html
 						span.word Time
 						span.num#time
 					td
+						button#help Help
+					td
 						button#hint Hint
 		div#about(style="position:relative")
 			a(href='https://github.com/andy-hanson/thrifty-threesome-thriller')
@@ -26,18 +28,30 @@ html
 					src='https://github-camo.global.ssl.fastly.net/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67',
 					alt='Fork me on GitHub',
 					data-canonical-src='https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png')
-			| Each card has:
+			| Each card has <b>4</b> attributes, each of which has <b>3</b> possibilities:
+			table
+				tr
+					td.attr Shape
+					td.attrv Square, circle, triangle
+				tr
+					td.attr Color
+					td.attrv Orange, green, purple
+				tr
+					td.attr Shade
+					td.attrv Outline, stripe, fill
+				tr
+					td.attr Number
+					td.attrv 1, 2, 3
+			p Click on <b>3</b> cards.
+			p For each attribute, that attribute must be the <i>same</i> for all, or <i>different</i> for all.
+			p For example:
 			ul
-				li Shape
-				li Color
-				li Shade
-				li Number
-
-			p Click on a group of 3 cards.
-			p For each attribute, that attribute must be <i>the same</i> for all, or <i>different</i> for all.
-			p For example
-			ul
-				li 1 2 3 is OK — each attribute is different.
-				li 1 1 1 is OK — each attribute is the same.
-				li 1 1 2 is bad — they are not <i>all</i> the same or <i>all</i> different.
-			p Use the hint button to see examples.
+				li
+					span.set 1 2 3
+					| is OK — each attribute is <i>different</i>.
+				li
+					span.set 1 1 1
+					| is OK — each attribute is the <i>same</i>.
+				li
+					span.set 1 1 2
+					| is bad — they are not <i>all</i> the same or <i>all</i> different.

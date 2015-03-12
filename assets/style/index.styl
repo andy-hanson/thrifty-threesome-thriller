@@ -3,10 +3,11 @@ html, body
 	height 100%
 	margin 0
 	padding 0
-	background-color black
+	background-color #111111
 
 #main
 	height 100%
+	overflow hidden
 
 #game
 	margin-left auto
@@ -16,20 +17,20 @@ html, body
 	box-shadow 0px 0px 5px 6px #ff888844
 	// height, border-radius set by CardTable#resize
 
-table
+#game table
 	border-collapse collapse
 
-td
+#game td
 	padding 0
 	margin 0
 
 #hud
-	padding-top 18px
 	height 40px
 	width 100%
+	margin-bottom -18px
 
 #hud td
-	width 33.3%
+	width 25%
 
 #scoreTd
 	color cyan
@@ -47,21 +48,28 @@ td
 	font-size 175%
 	text-shadow 0 0 0.1em #fff
 
+#help
+	color navy
+
 #hint
+	color magenta
+
+#help, #hint
 	float right
 	position relative
 	bottom 5px
 	border-radius 10px
 
-	color magenta
 	font-family cursive
 	font-size 150%
 	font-weight bold
-
-#hint:hover
+#help:hover, #hint:hover
 	color red
 
+
 #about
+	font-family 'PT Sans'
+
 	margin-left auto
 	margin-right auto
 	margin-top 10px
@@ -74,3 +82,20 @@ td
 	padding-top 1%
 	padding-bottom 1%
 	border-radius 25px
+
+#about table
+	padding-top 10px
+	margin-left auto
+	margin-right auto
+	width 50%
+
+.attr
+	font-family Impact
+	font-weight bold
+
+
+.set
+	font-weight bold
+	font-family monospace
+	font-size 125%
+	margin-right 5px
