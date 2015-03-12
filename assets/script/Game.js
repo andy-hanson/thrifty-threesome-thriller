@@ -21,7 +21,7 @@ function Game() {
 }
 module.exports = Game
 Game.prototype = {
-	GAME_TIME: 120,
+	GAME_TIME: 180,
 
 	isPlaying: function() {
 		return this.state === "playing"
@@ -53,7 +53,6 @@ Game.prototype = {
 		$('#time').text(this.time)
 		var self = this
 		if (this.time == 0) {
-			//Game over!
 			timesUp.play()
 			this.state = "frozen"
 			window.setTimeout(function() { self.state = "waiting" }, 5000)
@@ -72,8 +71,12 @@ Game.prototype = {
 	},
 
 	resize: function() {
-		var g = $("#game")
-		this.table.resize(g.width(), g.height())
+		var main = $("#main")
+		var game = $("#game")
+		var width = game.width()
+		var height = main.height() - $("#hud").outerHeight()
+		game.css('border-radius', (Math.min(width, height) * 0.10) + 'px')
+		this.table.resize(width, height)
 	},
 
 	hint: function() {

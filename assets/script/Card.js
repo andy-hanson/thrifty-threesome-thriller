@@ -4,7 +4,6 @@ var $ = require("jquery")
 
 function Card(cell, row, col) {
 	this.cell = cell
-	this.cell.className = 'card'
 	this.data = [ 0, 0, 0, 0 ] // Set in CardTable#reset
 	this.selected = false
 	this.highlighted = false
@@ -18,6 +17,8 @@ Card.prototype = {
 	},
 
 	resize: function(width, height) {
+		//$(this.cell).width(width)
+		//$(this.cell).height(height)
 		this.width = width
 		this.height = height
 		this.draw()
@@ -180,18 +181,18 @@ Card.prototype = {
 	_setStrokeAndGetStripeColor: function(c) {
 		var alpha = '0.25'
 		switch (this.colorId()) {
-			case 0: //Red
-				c.strokeStyle = c.fillStyle = '#c00'
-				c.shadowColor = 'rgba(255, 0, 0, '+alpha+')'
-				return '#f88'
-			case 1: //Green-yellow
-				c.strokeStyle = c.fillStyle = '#460'
+			case 0: // Orange
+				c.strokeStyle = c.fillStyle = '#ea0'
+				c.shadowColor = 'rgba(255, 255, 0, '+alpha+')'
+				return '#ff8'
+			case 1: // Green
+				c.strokeStyle = c.fillStyle = '#280'
 				c.shadowColor = 'rgba(0, 255, 0, '+alpha+')'
 				return '#8f8'
-			case 2: //Purple
-				c.strokeStyle = c.fillStyle = '#80f'
-				c.shadowColor = 'rgba(0, 0, 255, '+alpha+')'
-				return '#88f'
+			case 2: // Pink
+				c.strokeStyle = c.fillStyle = '#a0a'
+				c.shadowColor = 'rgba(255, 0, 255, '+alpha+')'
+				return '#f8f'
 			default: throw new Error('Weird colorId')
 		}
 	},

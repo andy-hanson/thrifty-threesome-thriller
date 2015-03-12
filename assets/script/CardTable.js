@@ -8,7 +8,7 @@ var
 function CardTable() {
 	this.cards = []
 	this.makeTable()
-	$('#tableDiv').append(this.table)
+	$('#game').append(this.table)
 }
 module.exports = CardTable
 CardTable.prototype = {
@@ -26,19 +26,12 @@ CardTable.prototype = {
 	makeTable: function() {
 		this.table = document.createElement('table')
 		this.table.id = 'cardtable'
-		for (var r=0; r < this.nRows; r++) {
-			var row = this.table.insertRow(r)
-			for (var c=0; c < this.nCols; c++) {
-				var cell = row.insertCell(c)
-				cell.card = new Card(cell, r, c)
-			}
-		}
-
-		// Card order goes down then right
 		this.cards = []
-		for (var c = 0; c < this.nCols; c++)
-			for (var r = 0; r < this.nRows; r++)
-				this.cards.push(this.table.rows[r].cells[c].card)
+		for (var r = 0; r < this.nRows; r++) {
+			var row = this.table.insertRow(r)
+			for (var c = 0; c < this.nCols; c++)
+				this.cards.push(new Card(row.insertCell(c), r, c))
+		}
 	},
 
 	isRepeatOnBoard: function() {
@@ -73,13 +66,8 @@ CardTable.prototype = {
 	},
 
 	resize: function(width, height) {
-		var br = Math.min(width, height) * 0.10
-		$("#tableDiv").css('border-radius', br + 'px')
-		var cardWidth = width / this.nCols
-		var cardHeight = height / this.nRows
-		this.cards.forEach(function(card) {
-			card.resize(cardWidth, cardHeight)
-		})
+		var cardWidth = width / this.nCols, cardHeight = height / this.nRows
+		this.cards.forEach(function(card) { card.resize(cardWidth, cardHeight) })
 	}
 }
 

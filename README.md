@@ -2,14 +2,9 @@
 
 ## Run
 
-Playable at <http://andy-hanson.github.io/thrifty-threesome-thriller>.
+<http://andy-hanson.github.io/thrifty-threesome-thriller>
 
-Or: `sudo npm install; node_modules/grunt-cli/bin/grunt`, then navigate to `localhost:8000`.
-
-
-## Play
-
-Instructions on bottom of page.
+Or: `sudo npm install; node_modules/grunt-cli/bin/grunt`, then it's at <http://localhost:8000>.
 
 
 ### License
