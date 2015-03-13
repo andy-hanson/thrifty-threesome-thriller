@@ -59,14 +59,14 @@ Card.prototype = {
 
 		this._drawBorder(c)
 
-		c.lineWidth = shapeLineWidth
+		c.lineWidth = this.minSize() / 24
 		c.lineJoin = 'round' //Rounded lines
 
 		var shapeRegions = this._shapeRegions()
 		var stripeColor = this._setStrokeAndGetStripeColor(c)
-		c.shadowOffsetX = 3
-		c.shadowOffsetY = 3
-		c.shadowBlur = 0
+		var shadowOffset = this.minSize() / 48
+		c.shadowOffsetX = c.shadowOffsetY = shadowOffset
+		c.shadowBlur = shadowOffset / 2
 		this._doShade(c, shapeRegions, stripeColor)
 		return canvas
 	},
@@ -79,12 +79,12 @@ Card.prototype = {
 		var corner = (this.minSize() - margin * 2) * 0.33 //Corner is rad of rounding
 		if (this.selected) {
 			//Selected card; highlight it
-			c.fillStyle = '#8ff'
+			c.fillStyle = '#044'
 			c.strokeStyle = '#f80'
 			c.shadowColor= 'rgba(255,128,0,0.5)'
 		}
 		else if (this.highlighted) {
-			c.fillStyle = '#f8f'
+			c.fillStyle = '#202'
 			c.strokeStyle = '#80f'
 			c.shadowColor = 'rgba(128,0,255,0.5)'
 		} else { //Normal card
@@ -179,19 +179,19 @@ Card.prototype = {
 	},
 
 	_setStrokeAndGetStripeColor: function(c) {
-		var alpha = '0.25'
+		var shadowAlpha = '0.2'
 		switch (this.colorId()) {
 			case 0: // Orange
 				c.strokeStyle = c.fillStyle = '#ea0'
-				c.shadowColor = 'rgba(255, 255, 0, '+alpha+')'
+				c.shadowColor = 'rgba(255, 255, 0, '+shadowAlpha+')'
 				return '#ff8'
 			case 1: // Green
 				c.strokeStyle = c.fillStyle = '#280'
-				c.shadowColor = 'rgba(0, 255, 0, '+alpha+')'
+				c.shadowColor = 'rgba(0, 255, 0, '+shadowAlpha+')'
 				return '#8f8'
 			case 2: // Pink
 				c.strokeStyle = c.fillStyle = '#a0a'
-				c.shadowColor = 'rgba(255, 0, 255, '+alpha+')'
+				c.shadowColor = 'rgba(255, 0, 255, '+shadowAlpha+')'
 				return '#f8f'
 			default: throw new Error('Weird colorId')
 		}
@@ -206,9 +206,10 @@ Card.prototype = {
 			case 1: // STRIPED
 				c.save() //Save unclipped state.
 				c.clip() //Restricts region to the shape.
-				c.lineWidth = stripeLineWidth
+				var stripeWidth = this.minSize() / 32
+				c.lineWidth = stripeWidth
 				c.strokeStyle = stripeColor
-				pencilLines(c, this.width, this.height)
+				pencilLines(c, this.width, this.height, stripeWidth * 2)
 				c.stroke() //Draw the stripes
 				c.restore() //Undo clipping and different style and line width.
 				this._pencil(c, shapeRegions)
@@ -237,7 +238,8 @@ Card.prototype = {
 	}
 }
 
-var shapeLineWidth = 6, stripeLineWidth = 4 //Stripe is for in-between empty and full shading
+// TODO
+var stripeLineWidth = 4 //Stripe is for in-between empty and full shading
 
 //Drawing functions
 function pencilTri(c, minx, miny, maxx, maxy) {
@@ -263,8 +265,7 @@ function pencilCircle(c, minx, miny, maxx, maxy) {
 }
 
 //Draws stripes through the whole rectangle.
-function pencilLines(c, width, height) {
-	var spacing = 8
+function pencilLines(c, width, height, spacing) {
 	var tilt = width * 0.33
 	for (var y = -tilt + 0.5; y < height; y += spacing) {
 		c.moveTo(0, y + tilt)

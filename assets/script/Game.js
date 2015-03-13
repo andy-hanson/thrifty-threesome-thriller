@@ -3,7 +3,7 @@ var
 	CardTable = require("./CardTable"),
 	CardSelect = require("./CardSelect")
 var
-	timesUp = new Audio("sound/timesUp.wav")
+	timesUp = new Howl({ src: "sound/timesUp.wav" })
 
 function Game() {
 	this.table = new CardTable()
@@ -17,7 +17,7 @@ function Game() {
 	var cardSelect = this.cardSelect
 	this.reset()
 	// Fix bug in Chrome where it resizes wrong the first time
-	window.setTimeout(function() { self.resize() }, 1)
+	window.setTimeout(function() { self.resize() }, 100)
 }
 module.exports = Game
 Game.prototype = {

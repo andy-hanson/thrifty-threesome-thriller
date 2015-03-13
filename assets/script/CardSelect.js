@@ -5,9 +5,8 @@ var
 	isSet = require("./rules").isSet,
 	errorDescription = require("./rules").errorDescription
 var
-	getSet = new Audio("sound/getSet.wav"),
-	badSet = new Audio("sound/badSet.wav")
-
+	getSet = new Howl({ src: "sound/getSet.wav" }),
+	badSet = new Howl({ src: "sound/badSet.wav" })
 
 function CardSelect(game) {
 	this.game = game
@@ -21,18 +20,18 @@ function CardSelect(game) {
 module.exports = CardSelect
 CardSelect.prototype = {
 	reset: function() {
+		this.selectOn = true
 		this.selectedCards = []
 		this.hintCards = []
 	},
 
 	cardClicked: function(card) {
-		if (!this.game.isPlaying())
-			return
-
-		if (card.selected)
-			this.deselectCard(card)
-		else
-			this.selectCard(card)
+		if (this.game.isPlaying() && this.selectOn) {
+			if (card.selected)
+				this.deselectCard(card)
+			else
+				this.selectCard(card)
+		}
 	},
 
 	selectCard: function(card) {
@@ -43,20 +42,21 @@ CardSelect.prototype = {
 
 	checkForSet: function() {
 		if (this.selectedCards.length === 3) {
-			if (isSet(this.selectedCards[0], this.selectedCards[1], this.selectedCards[2]))
-				this.onSet()
-			else {
-				//alert(
-				//	'Not a valid group - error in attribute(s) ' +
-				//	errorDescription(this.selectedCards[0], this.selectedCards[1], this.selectedCards[2]))
+			this.selectOn = false
+			var ok = isSet(this.selectedCards[0], this.selectedCards[1], this.selectedCards[2])
+			if (ok)
+				getSet.play()
+			else
 				badSet.play()
-				this.deselectAll()
-			}
+			var self = this
+			window.setTimeout(function() {
+				self.selectOn = true
+				if (ok) self.onSet(); else self.deselectAll()
+			}, 600)
 		}
 	},
 
 	onSet: function() {
-		getSet.play()
 		this.game.table.resetCards(this.selectedCards)
 		this.deselectAll()
 		this.hintCards.forEach(function(card) { card.setHighlight(false) })
@@ -74,7 +74,7 @@ CardSelect.prototype = {
 	},
 
 	contextMenu: function() {
-		if (this.selectedCards.length > 0) {
+		if (this.selectedCards.length > 0 && this.selectOn) {
 			this.deselectAll()
 			return false
 		}
