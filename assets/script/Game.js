@@ -1,85 +1,81 @@
-var
-	$ = require("jquery"),
-	CardTable = require("./CardTable"),
-	CardSelect = require("./CardSelect")
-var
-	timesUp = new Howl({ src: "sound/timesUp.wav" })
+import $ from 'jquery'
+import CardSelect from './CardSelect'
+import CardTable from './CardTable'
+const
+	timesUp = new global.Howl({ src: 'sound/timesUp.wav' })
+const
+	GameTime = 180
 
-function Game() {
-	this.table = new CardTable()
-	this.cardSelect = new CardSelect(this)
+module.exports = class Game {
+	constructor() {
+		this.table = new CardTable()
+		this.cardSelect = new CardSelect(this)
 
-	var self = this
-	$(window).resize(function() { self.resize() })
-	$("#hint").click(function() { self.hint() })
-	$("#game").click(function() { self.clicked() })
+		$(window).resize(() => this.resize())
+		$('#hint').click(() => this.hint())
+		$('#game').click(() => this.clicked())
 
-	var cardSelect = this.cardSelect
-	this.reset()
-	// Fix bug in Chrome where it resizes wrong the first time
-	window.setTimeout(function() { self.resize() }, 100)
-}
-module.exports = Game
-Game.prototype = {
-	GAME_TIME: 180,
+		// Fix bug in Chrome where it resizes wrong the first time
+		window.setTimeout(() => this.resize(), 100)
+	}
 
-	isPlaying: function() {
-		return this.state === "playing"
-	},
+	isPlaying() {
+		return this.state === 'playing'
+	}
 
-	clicked: function() {
+	clicked() {
 		switch (this.state) {
-			case "playing":
+			case 'playing':
 				break
-			case "waiting":
+			case 'waiting':
 				this.reset()
-			case "frozen":
-				break // Must wait for unfreeze
+			case 'frozen':
+				// Must wait for unfreeze
+				break
 			default: throw new Error()
 		}
-	},
+	}
 
-	reset: function() {
+	reset() {
 		this.resize()
 		this.table.reset()
-		this.state = "playing"
+		this.state = 'playing'
 		this.setScore(0)
-		this.time = this.GAME_TIME
+		this.time = GameTime
 		this.clock()
-	},
+	}
 
-	clock: function() {
-		this.time -= 1
+	clock() {
+		this.time = this.time - 1
 		$('#time').text(this.time)
-		var self = this
-		if (this.time == 0) {
+		if (this.time === 0) {
 			timesUp.play()
-			this.state = "frozen"
-			window.setTimeout(function() { self.state = "waiting" }, 5000)
+			this.state = 'frozen'
+			window.setTimeout(() => this.state = 'waiting', 5000)
 		}
 		else
-			window.setTimeout(function() { self.clock() }, 1000)
-	},
+			window.setTimeout(() => this.clock(), 1000)
+	}
 
-	onSet: function() {
+	onSet() {
 		this.setScore(this.score + 1)
-	},
+	}
 
-	setScore: function(newScore) {
+	setScore(newScore) {
 		this.score = newScore
-		$("#score").text(this.score)
-	},
+		$('#score').text(this.score)
+	}
 
-	resize: function() {
-		var main = $("#main")
-		var game = $("#game")
-		var width = game.width()
-		var height = main.height() - $("#hud").outerHeight()
+	resize() {
+		const main = $('#main')
+		const game = $('#game')
+		const width = game.width()
+		const height = main.height() - $('#hud').outerHeight()
 		game.css('border-radius', (Math.min(width, height) * 0.10) + 'px')
 		this.table.resize(width, height)
-	},
+	}
 
-	hint: function() {
+	hint() {
 		this.setScore(this.score - 1)
 		this.cardSelect.showHint(this.table.findSet())
 	}

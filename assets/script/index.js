@@ -1,26 +1,24 @@
-"use strict"
-
-require("./howler.core.min.js") // TODO: NPM version (once 2.0 is available)
-var
-	$ = require("jquery"),
-	Game = require("./Game")
-require("jquery.scrollto")
+// TODO: NPM version (once 2.0 is available)
+import './howler.core.min.js'
+import $ from 'jquery'
+import 'jquery.scrollto'
+import Game from './Game'
 
 $(function() {
-	new Game()
+	new Game().reset()
 
-	var about = $("#about")
+	const about = $('#about')
 	about.hide()
-	$("#help").click(function() {
+	$('#help').click(function() {
 		about.toggle()
-		if (about.is(":visible"))
+		if (about.is(':visible'))
 			$(window).scrollTo(about)
 	})
 
-	var muted = false
-	$("#mute").click(function() {
+	let muted = false
+	$('#mute').click(function() {
 		muted = !muted
-		Howler.mute(muted)
-		$(this).attr("class", "fa fa-volume-" + (muted ? "off" : "up"))
+		global.Howler.mute(muted)
+		$(this).attr('class', `fa fa-volume-${muted ? 'off' : 'up'}`)
 	})
 })
