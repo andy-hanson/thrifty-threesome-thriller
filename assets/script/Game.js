@@ -6,7 +6,7 @@ const
 const
 	GameTime = 180
 
-module.exports = class Game {
+export default class Game {
 	constructor() {
 		this.table = new CardTable()
 		this.cardSelect = new CardSelect(this)

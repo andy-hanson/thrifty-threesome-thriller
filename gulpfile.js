@@ -7,16 +7,13 @@ var
 	gulp = require('gulp'),
 	gutil = require('gulp-util'),
 	jade = require('gulp-jade'),
-	rimraf = require('rimraf'),
 	sourceStream = require('vinyl-source-stream'),
 	sourceMaps = require('gulp-sourcemaps'),
 	stylus = require('gulp-stylus'),
 	watch = require('gulp-watch'),
 	watchify = require('watchify')
 
-gulp.task('clean', function(cb) { rimraf('public', cb) })
-
-gulp.task('default', [ 'clean', 'view', 'style', 'sound', 'lint-script', 'script', 'serve' ])
+gulp.task('default', [ 'view', 'style', 'sound', 'lint-script', 'script', 'serve' ])
 
 function simple(name, stream, outName) {
 	if (outName === undefined)
