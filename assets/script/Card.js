@@ -1,5 +1,4 @@
 import $ from 'jquery'
-import assert from 'assert'
 
 export default class Card {
 	constructor(cell, row, col) {
@@ -275,8 +274,8 @@ function pencilLines(c, width, height, spacing) {
 }
 
 function pencilRoundRect(c, minx, miny, maxx, maxy, rad) {
-	assert(rad < (maxx - minx) / 2)
-	assert(rad < (maxy - miny) / 2)
+	// assert(rad < (maxx - minx) / 2)
+	// assert(rad < (maxy - miny) / 2)
 	c.beginPath()
 	c.moveTo(minx + rad, miny)
 	c.arc(minx + rad, miny + rad, rad, Math.PI * 3 / 2, Math.PI, true)

@@ -1,24 +1,10 @@
-// TODO: NPM version (once 2.0 is available)
-import './howler.core.min.js'
-import $ from 'jquery'
-import 'jquery.scrollto'
-import Game from './Game'
-
-$(function() {
-	new Game().reset()
-
-	const about = $('#about')
-	about.hide()
-	$('#help').click(function() {
-		about.toggle()
-		if (about.is(':visible'))
-			$(window).scrollTo(about)
-	})
-
-	let muted = false
-	$('#mute').click(function() {
-		muted = !muted
-		global.Howler.mute(muted)
-		$(this).attr('class', `fa fa-volume-${muted ? 'off' : 'up'}`)
-	})
+window.requirejs.config({
+	baseUrl: './script',
+	paths: {
+		howler: '../lib/howler.core.min',
+		jquery: '//code.jquery.com/jquery-2.1.3.min',
+		'jquery.scrollTo': '//cdn.jsdelivr.net/jquery.scrollto/2.1.0/jquery.scrollTo.min'
+	}
 })
+
+require([ './main' ], () => { }, err => { throw err })

@@ -1,8 +1,9 @@
 import $ from 'jquery'
+import { Howl } from 'howler'
 import { isSet, errorDescription } from './rules'
 const
-	getSet = new global.Howl({ src: 'sound/getSet.wav' }),
-	badSet = new global.Howl({ src: 'sound/badSet.wav' })
+	getSet = new Howl({ src: 'sound/getSet.wav' }),
+	badSet = new Howl({ src: 'sound/badSet.wav' })
 
 export default class CardSelect {
 	constructor(game) {

@@ -1,8 +1,9 @@
 import $ from 'jquery'
+import { Howl } from 'howler'
 import CardSelect from './CardSelect'
 import CardTable from './CardTable'
 const
-	timesUp = new global.Howl({ src: 'sound/timesUp.wav' })
+	timesUp = new Howl({ src: 'sound/timesUp.wav' })
 const
 	GameTime = 180
 
