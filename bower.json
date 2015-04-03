@@ -1,0 +1,10 @@
+{
+	"name": "thrifty-threesome-thriller",
+	"dependencies": {
+		"font-awesome": "4.3.0",
+		"howler": "https://github.com/goldfire/howler.js.git#c5a5cf63cf0439deb6dbbaba857e7fa86ab86905",
+		"jquery": "2.1.3",
+		"jquery.scrollTo": "2.1.0",
+		"requirejs": "2.1.17"
+	}
+}

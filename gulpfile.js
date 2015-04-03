@@ -30,7 +30,11 @@ gulp.task('style', function() { return simple('style', stylus()) })
 
 gulp.task('sound', function() { return simple('sound') })
 
-gulp.task('lib', function() { return simple('lib') })
+gulp.task('lib', function() {
+	return gulp.src('bower_components/**/*', { base: 'bower_components' })
+	.pipe(watch('bower_components', { verbose: true }))
+	.pipe(gulp.dest('public/lib'))
+})
 
 gulp.task('script', function() {
 	return watchStream('script')

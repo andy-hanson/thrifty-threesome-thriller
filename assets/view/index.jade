@@ -3,9 +3,9 @@ html
 	head
 		title Thrifty Threesome Thriller
 		meta(charset='utf-8')
-		script(src='./lib/require.min.js', data-main='./script/index.js')
-		link(rel='stylesheet', href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css")
-		link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Oleo+Script|Oswald:700|PT+Sans:400,700")
+		script(src='./lib/requirejs/require.js', data-main='./script/index.js')
+		link(rel='stylesheet', href='./lib/font-awesome/css/font-awesome.css')
+		link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Oleo+Script|Oswald:700|PT+Sans:400,700')
 		link(rel='stylesheet', href='./style/index.css')
 	body
 		div#main
@@ -19,12 +19,12 @@ html
 						span.word Time
 						span.num#time
 					td
-						i#mute(class="fa fa-volume-up")
+						i#mute(class='fa fa-volume-up')
 					td
 						button#help Help
 					td
 						button#hint Hint
-		div#about(style="position:relative")
+		div#about(style='position:relative')
 			a(href='https://github.com/andy-hanson/thrifty-threesome-thriller')
 				img(
 					style='position: absolute; top: 0; right: 0',
