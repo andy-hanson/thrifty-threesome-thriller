@@ -1,5 +1,14 @@
 Find-a-match puzzle game.
 
-Play at <http://andy-hanson.github.io/thrifty-threesome-thriller>.
+Play [here](https://andy-hanson.github.io/thrifty-threesome-thriller).
 
-Or: `npm install; bower install; node_modules/gulp/bin/gulp.js`, then it's at <http://localhost:8000>.
+Example of [mason](http://mason-lang.org) used with [gulp-mason](http://mason-lang.github.com/gulp-mason).
+
+## Build
+
+	npm install
+	bower install
+	sudo npm install -g gulp
+	gulp
+
+Then visit http://localhost:8000.
