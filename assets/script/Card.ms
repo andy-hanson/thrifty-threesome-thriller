@@ -1,4 +1,4 @@
-use
+import
 	msl.@.Seq.Array fill
 	msl.math.random random-int-upto
 	.context2d-util pencil-circle! pencil-lines! pencil-square! pencil-round-rect! pencil-tri!

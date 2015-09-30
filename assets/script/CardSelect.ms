@@ -1,4 +1,4 @@
-use
+import
 	howler Howl
 	msl.io.time $after-time
 	msl.$ $done
@@ -10,8 +10,8 @@ bad-set = new Howl (src. "sound/bad-set.wav")
 
 CardSelect. class
 	construct! .game
-		.selectedCards ::= []
-		.hintCards ::= []
+		.selected-cards ::= []
+		.hint-cards ::= []
 
 		(elem "game").oncontextmenu := |
 			.-context-menu!()
@@ -21,23 +21,26 @@ CardSelect. class
 				.-card-clicked! _
 
 	"reset!" !|
-		for! .selectedCards
+		for! .selected-cards
 			_.set-selected! false
-		for! .hintCards
+		for! .hint-cards
 			_.set-highlight! false
 
-		.selectOn := true
-		.selectedCards := []
-		.hintCards := []
+		.select-on := true
+		.selected-ards := []
+		.hint-cards := []
+
+	"is-hinting?" |
+		not empty? .hint-cards
 
 	"show-hint!" !|hint-cards
 		.-deselect-all!()
-		.hintCards := hint-cards
-		for! .hintCards
+		.hint-cards := hint-cards
+		for! .hint-cards
 			_.set-highlight! true
 
 	"-card-clicked!" !|card
-		if! and .game.isPlaying() .selectOn
+		if! and .game.isPlaying() .select-on
 			case!
 				card.selected?
 					.-deselect-card! card
@@ -45,19 +48,19 @@ CardSelect. class
 					.-select-card! card
 
 	"-select-card!" !|card
-		.selectedCards.push card
+		.selected-cards.push card
 		card.set-selected! true
 		.-check-for-set!()
 
 	"-check-for-set!" !|
-		if! =? .selectedCards.length 3
-			todo ...(.selectedCards)
-			ok? = is-threesome? .selectedCards[0] .selectedCards[1] .selectedCards[2]
+		if! =? .selected-cards.length 3
+			todo ...(.selected-cards)
+			ok? = is-threesome? .selected-cards[0] .selected-cards[1] .selected-cards[2]
 			(cond ok? get-set bad-set).play()
 
-			.selectOn := false
+			.select-on := false
 			$done ($after-time 600 !|
-				.selectOn := true
+				.select-on := true
 				case!
 					ok?
 						.-on-set!()
@@ -65,23 +68,24 @@ CardSelect. class
 						.-deselect-all!()
 
 	"-on-set!" !|
-		.game.table.reset-cards! .selectedCards
+		.game.table.reset-cards! .selected-cards
 		.-deselect-all!()
-		for! .hintCards
-			_.set-highlight! false
 		.game.onSet()
 
 	"-deselect-all!" !|
-		for! .selectedCards
+		for! .selected-cards
 			_.set-selected! false
-		empty! .selectedCards
+		empty! .selected-cards
+		for! .hint-cards
+			_.set-highlight! false
+		empty! .hint-cards
 
 	"-deselect-card!" !|card
-		-! .selectedCards card
+		-! .selected-cards card
 		card.set-selected! false
 
 	"-context-menu!" |
-		any-selected-cards? = and (not empty? .selectedCards) .selectOn
+		any-selected-cards? = and (not empty? .selected-cards) .select-on
 		if! any-selected-cards?
 			.-deselect-all!()
 		not any-selected-cards?

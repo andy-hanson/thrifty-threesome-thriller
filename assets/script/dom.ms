@@ -1,6 +1,6 @@
 | TODO: mason-dom package
 
-use
+import
 	global document
 
 elem. |elem-name

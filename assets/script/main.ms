@@ -1,4 +1,4 @@
-use
+import
 	howler Howler
 	.dom elem hide! toggle-visibility! on
 	.Game

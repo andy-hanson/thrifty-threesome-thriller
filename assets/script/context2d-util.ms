@@ -1,4 +1,4 @@
-use
+import
 	msl.math.Number mid
 
 pencil-circle!. |c min-x min-y max-x max-y

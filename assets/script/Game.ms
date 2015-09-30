@@ -1,4 +1,4 @@
-use
+import
 	global window setTimeout
 	howler Howl
 	.CardSelect
@@ -11,7 +11,7 @@ GameTime = 180
 Game. class
 	construct!
 		.table = new CardTable
-		.cardSelect = new CardSelect this
+		.card-select = new CardSelect this
 
 		on "resize" window !|
 			.resize!()
@@ -35,7 +35,7 @@ Game. class
 	"reset!" !|
 		.resize!()
 		.table.reset!()
-		.cardSelect.reset!()
+		.card-select.reset!()
 		.state := "playing"
 		.setScore 0
 		.time := GameTime
@@ -77,5 +77,6 @@ Game. class
 		.table.resize! width height
 
 	"hint" !|
-		.setScore (- .score 1)
-		.cardSelect.show-hint! .table.find-set()
+		unless! .card-select.is-hinting?()
+			.setScore (- .score 1)
+			.card-select.show-hint! .table.find-set()
