@@ -20,4 +20,4 @@ define(["msl/private/boot","exports","howler","./dom","./Game"],(_boot,exports,h
 	const name=exports.name=`main`;
 	return exports
 })
-//# sourceMappingURL=main.js.map
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFzc2V0cy9zY3JpcHQvbWFpbi5tcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7O0NBS0MsS0FBSTtDQUVMLFlBQVEsS0FBTTtDQUNkLFFBQU07Q0FFTixHQUFJLFFBQVEsS0FBTSxRQUNTLElBQUE7RUFBMUIsR0FBSSx1QkFBbUIsT0FDSztHQUEzQjs7O0NBRUYsVUFBVTtDQUNWLDJCQUFBLEdBQUksUUFBUSxLQUFNLFFBQ1UsVUFBQTtRQUUzQjtRQUZTLEVBQUk7RUFDYixZQUFZO0VBQ1osZ0JBQWUsZ0JBQW1CLENBQUEsTUFBTyxNQUFNOztDQWxCaEQsd0JBQUEiLCJmaWxlIjoiLi9tYWluLmpzIn0=

@@ -1,3 +1,5 @@
+@import '//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css';
+@import '//fonts.googleapis.com/css?family=Oleo+Script|Oswald:700|PT+Sans:400,700';
 html,
 body {
   width: 100%;
@@ -111,14 +113,6 @@ body {
   font-size: 125%;
   margin-right: 5px;
 }
-#about #made-in-mason {
+#about #signature {
   text-align: center;
-}
-#about #made-in-mason a {
-  text-decoration: none;
-  font-weight: bold;
-}
-#about #made-in-mason #ms-logo {
-  width: 1.5em;
-  height: 1.5em;
 }
