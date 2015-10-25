@@ -6,9 +6,10 @@ html
 		script.
 			requirejs.config({
 				baseUrl: 'lib',
-				paths: {howler: 'howler/howler.min', msl: 'msl/dist'}
+				paths: {howler: 'howler/howler.min', msl: 'msl/lib'}
 			})
-			require([ "../script/main" ])
+			// kludge: need to import bootstrap first because of lazy modules
+			require(['msl/private/bootstrap'], () => require(['../script/main']))
 
 		link(rel='stylesheet' href='./style/index.css')
 	body

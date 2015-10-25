@@ -1,23 +1,23 @@
 import
 	msl.math.Number mid
 
-pencil-circle!. |c min-x min-y max-x max-y
-	rad = / (Math.min (- max-x min-x) (- max-y min-y)) 2
+pencil-circle!. \c min-x min-y max-x max-y
+	rad = / (Math.min (- max-x min-x) - max-y min-y) 2
 	center-x = mid min-x max-x
 	center-y = mid min-y max-y
 	c.moveTo (+ center-x rad) center-y
 	c.arc center-x center-y rad 0 (* 2 Math.PI) false
 
-pencil-lines!. !|c width height spacing
+pencil-lines!. !\c width height spacing
 	| Draws stripes through the whole rectangle.
 	tilt = * width 0.33
-	for! y in new Range (+ (neg tilt) 0.5) height spacing
-		c.moveTo 0 (+ y tilt)
+	for y of ((+ 0.5 neg tilt)...height).by spacing
+		c.moveTo 0 + y tilt
 		c.lineTo width y
 
-pencil-round-rect!. !|c min-x min-y max-x max-y rad
-	assert! <? rad (/ (- max-x min-x) 2)
-	assert! <? rad (/ (- max-y min-y) 2)
+pencil-round-rect!. !\c min-x min-y max-x max-y rad
+	assert <? rad * 0.5 - max-x min-x
+	assert <? rad * 0.5 - max-y min-y
 
 	left = + min-x rad
 	up = + min-y rad
@@ -36,14 +36,14 @@ pencil-round-rect!. !|c min-x min-y max-x max-y rad
 	c.arc right down rad (/ Math.PI 2) 0 true
 
 	c.lineTo max-x up
-	c.arc right up rad 0 (neg (/ Math.PI 2)) true
+	c.arc right up rad 0 (neg / Math.PI 2) true
 
 	|| Will close shape so we don't need to redo first arc.
 	c.lineTo left min-y
 
 	c.closePath()
 
-pencil-square!. |c min-x min-y max-x max-y
+pencil-square!. \c min-x min-y max-x max-y
 	c.moveTo min-x min-y
 	c.lineTo max-x min-y
 	c.lineTo max-x max-y
@@ -51,7 +51,7 @@ pencil-square!. |c min-x min-y max-x max-y
 	c.lineTo min-x min-y
 	c.lineTo max-x min-y
 
-pencil-tri!. |c min-x min-y max-x max-y
+pencil-tri!. \c min-x min-y max-x max-y
 	center-x = mid min-x max-x
 	c.moveTo center-x min-y
 	c.lineTo min-x max-y

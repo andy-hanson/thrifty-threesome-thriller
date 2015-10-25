@@ -1,82 +1,75 @@
 import
-	global window setTimeout
+	global window
 	howler Howl
+	msl.io.time $sleep
 	.CardSelect
 	.CardTable
 	.dom elem on
 
-times-up = new Howl (src. "sound/times-up.wav")
+times-up = new Howl {src. "sound/times-up.wav"}
 GameTime = 180
 
 Game. class
-	construct!
-		.table = new CardTable
-		.card-select = new CardSelect this
+	construct
+		.table := new CardTable
+		.card-select := new CardSelect this
 
-		on "resize" window !|
-			.resize!()
-		on "click" (elem "hint") !|
-			.hint()
-		on "click" (elem "game") !|
-			.clicked()
+		on 'resize window .&resize!
+		on 'click (elem 'hint) .&hint!
+		on 'click (elem 'game) .&clicked!
 
-	"isPlaying" |
-		=? .state "playing"
+	is-playing? \
+		=? .state 'playing
 
-	"clicked" !|
-		switch! .state
-			"playing"
-				pass
-			"waiting"
-				.reset!()
-			"frozen"
-				pass
+	clicked! !\
+		if =? .state 'waiting
+			.reset!()
 
-	"reset!" !|
+	reset! !\
 		.resize!()
 		.table.reset!()
 		.card-select.reset!()
-		.state := "playing"
+		.state := 'playing
 		.setScore 0
 		.time := GameTime
 		.clock()
 
-	"clock" !|
-		.time := - .time 1
-		(elem "time").textContent := .time
-		case!
-			=? .time 0
+	clock $!\
+		show-time! = !\
+			(elem 'time).textContent := .time
+		show-time!()
+
+		for
+			$ $sleep 1000
+			.time := - .time 1
+			show-time!()
+			if =? .time 0
 				times-up.play()
-				.state := "frozen"
-				todo $after
-				wait = !|
-					.state := "waiting"
-				setTimeout wait 5000
-			else
-				clock = !|
-					.clock()
-				setTimeout clock 1000
+				.state := 'frozen
+				$ $sleep 5000
+				.state := 'waiting
+				break
 
-	"onSet" !|
-		.setScore (+ 1 .score)
+	onSet !\
+		.setScore + 1 .score
 
-	"setScore" !|new-score
+	setScore !\new-score
 		.score := new-score
-		(elem "score").textContent := .score
+		(elem 'score).textContent := .score
 
-	"resize!" !|
-		main = elem "main"
-		game = elem "game"
+	resize! !\
+		main = elem 'main
+		game = elem 'game
 		width = game.offsetWidth
-		height = - main.offsetHeight (elem "hud").offsetHeight
+		height = - main.offsetHeight (elem 'hud).offsetHeight
 
 		game.style.borderRadius :=
 			size = Math.min width height
-			"{* size 0.1}px"
+			"#(* size 0.1)px"
 
 		.table.resize! width height
 
-	"hint" !|
-		unless! .card-select.is-hinting?()
-			.setScore (- .score 1)
+	hint! !\
+		unless .card-select.is-hinting?()
+			.setScore - .score 1
 			.card-select.show-hint! .table.find-set()

@@ -1,33 +1,34 @@
-| TODO: mason-dom package
+todo mason-dom package
 
 import
 	global document
 
-elem. |elem-name
+elem. \elem-name
 	document.getElementById elem-name
 
-empty-node!. !|node
-	for!
-		unless! node.firstChild
-			break!
+empty-node!. !\node
+	todo SYNTAX while
+	for
+		unless node.firstChild
+			break
 		node.removeChild node.firstChild
 
-set-content!. !|node content
+set-content!. !\node content
 	empty-node! node
 	node.appendChild content
 
-hidden?. |node
-	=? node.style.display "none"
+hidden?. \node
+	=? node.style.display 'none
 
-hide!. !|node
-	node.style.display := "none"
+hide!. !\node
+	node.style.display := 'none
 
-new-node. |node-type
+new-node. \node-type
 	document.createElement node-type
 
-toggle-visibility!. |node
+toggle-visibility!. \node
 	with hidden? node
-		node.style.display := cond _ "block" "none"
+		node.style.display := cond _ 'block 'none
 
-on. |event-name node action
+on. \event-name node action
 	node.addEventListener event-name action
